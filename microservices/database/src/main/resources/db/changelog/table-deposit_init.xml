@@ -1,0 +1,47 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="Elena Yankovskaya"
+               id="create-table-deposit">
+
+        <createTable schemaName="bank"
+                     tableName="deposit"
+                     remarks="Начальный депозит пользователей">
+
+            <column name="id"
+                    autoIncrement="true"
+                    type="BIGINT"
+                    remarks="ID депозита">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="deposit_pk"
+                             unique="true"/>
+            </column>
+
+            <column name="person_id"
+                    type="BIGINT"
+                    remarks="ID пользователя"/>
+
+            <column name="initial_deposit"
+                    type="VARCHAR(50)"
+                    remarks="Начальный депозит"/>
+
+            <column name="deposit_limit"
+                    type="VARCHAR(50)"
+                    remarks="Лимит для начислений процентов на депозит"/>
+
+            <column name="deposit_percent"
+                    type="VARCHAR(50)"
+                    remarks="Начислено на депозит процентов"/>
+
+            <column name="is_done"
+                    type="BOOLEAN"
+                    remarks="Выплачены ли проценты полностью"/>
+
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

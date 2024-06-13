@@ -1,0 +1,16 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+        <include file="bank-schema-init.xml" relativeToChangelogFile="true"/>
+        <include file="auth-user_init.xml" relativeToChangelogFile="true"/>
+        <include file="table-person_init.xml" relativeToChangelogFile="true"/>
+        <include file="table-phone_init.xml" relativeToChangelogFile="true"/>
+        <include file="table-email_init.xml" relativeToChangelogFile="true"/>
+        <include file="table-deposit_init.xml" relativeToChangelogFile="true"/>
+        <include file="table-transfer_init.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

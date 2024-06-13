@@ -1,0 +1,35 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="Elena Yankovskaya"
+               id="create-table-email">
+
+        <createTable schemaName="bank"
+                     tableName="email"
+                     remarks="Электронная почта пользователей">
+
+            <column name="id"
+                    autoIncrement="true"
+                    type="BIGINT"
+                    remarks="ID электронной почты">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="email_pk"
+                             unique="true"/>
+            </column>
+
+            <column name="person_id"
+                    type="BIGINT"
+                    remarks="ID пользователя"/>
+
+            <column name="email_address"
+                    type="VARCHAR(50)"
+                    remarks="Адрес электронной почты"/>
+
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

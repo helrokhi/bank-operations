@@ -1,0 +1,67 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="Elena Yankovskaya"
+               id="create-table-transfer">
+
+        <createTable schemaName="bank"
+                     tableName="transfer"
+                     remarks="Перевод денег с одного счета на другой">
+
+            <column name="id"
+                    autoIncrement="true"
+                    type="BIGINT"
+                    remarks="ID операции">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="transfer_pk"
+                             unique="true"/>
+            </column>
+
+            <column name="transfer_type_id"
+                    type="BIGINT"
+                    remarks="Тип операции"/>
+
+            <column name="transfer_date"
+                    type="timestamp with time zone"
+                    remarks="Дата и время операции"/>
+
+            <column name="sender_id"
+                    type="BIGINT"
+                    remarks="ID отправителя"/>
+
+            <column name="beneficiary_id"
+                    type="BIGINT"
+                    remarks="ID получателя"/>
+
+            <column name="transfer_amount"
+                    type="VARCHAR(50)"
+                    remarks="Сумма перевода"/>
+
+            <column name="is_done"
+                    type="BOOLEAN"
+                    remarks="Успешная ли операция"/>
+
+            <column name="old_balance_sender"
+                    type="VARCHAR(50)"
+                    remarks="Баланс отправителя до трансфера"/>
+
+            <column name="new_balance_sender"
+                    type="VARCHAR(50)"
+                    remarks="Баланс отправителя после трансфера"/>
+
+            <column name="old_balance_beneficiary"
+                    type="VARCHAR(50)"
+                    remarks="Баланс получателя до трансфера"/>
+
+            <column name="new_balance_beneficiary"
+                    type="VARCHAR(50)"
+                    remarks="Баланс получателя после трансфера"/>
+
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

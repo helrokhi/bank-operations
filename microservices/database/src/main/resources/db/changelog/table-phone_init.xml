@@ -1,0 +1,35 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="Elena Yankovskaya"
+               id="create-table-phone">
+
+        <createTable schemaName="bank"
+                     tableName="phone"
+                     remarks="Телефоны пользователей">
+
+            <column name="id"
+                    autoIncrement="true"
+                    type="BIGINT"
+                    remarks="ID номера телефона">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="phone_pk"
+                             unique="true"/>
+            </column>
+
+            <column name="person_id"
+                    type="BIGINT"
+                    remarks="ID пользователя"/>
+
+            <column name="phone_number"
+                    type="VARCHAR(15)"
+                    remarks="Номер телефона"/>
+
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

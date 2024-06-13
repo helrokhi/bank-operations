@@ -1,0 +1,29 @@
+server:
+  port: 8040
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 1MB
+
+app:
+  security:
+    passwordStrength: 12
+
+emailToken:
+  lifeTime: 5
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,profile,prometheus
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true

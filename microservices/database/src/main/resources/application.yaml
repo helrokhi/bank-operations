@@ -1,0 +1,27 @@
+server:
+  port: 8050
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 1MB
+
+  liquibase:
+    change-log: src/main/resources/db/changelog/master.xml
+    changeLogFile: src/main/resources/db/changelog/master.xml
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, database, prometheus
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
