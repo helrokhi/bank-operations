@@ -1,0 +1,154 @@
+openapi: 3.0.3
+info: 
+    title: Сервис банковских трансакций openAPI спецификация
+    version: '0.0.1'
+servers: 
+  - url: 'http://localhost:8030/api/v1/beneficiaries/'
+    description: Dev server
+paths:
+  /: 
+    get:
+      summary: Поиск клиента
+      tags:
+        - Beneficiaries
+      operationId: searchPerson
+      parameters: 
+        - name: birthDate
+          in: query
+          required: false
+          schema: 
+            type: string
+        - name: phoneNumber
+          in: query
+          required: false
+          schema: 
+            type: string
+        - name: firstName
+          in: query
+          required: false
+          schema: 
+            type: string
+        - name: lastName
+          in: query
+          required: false
+          schema: 
+            type: string
+        - name: surName
+          in: query
+          required: false
+          schema: 
+            type: string
+        - name: emailAddress
+          in: query
+          required: false
+          schema: 
+            type: string
+        - name: login
+          in: query
+          required: true
+          schema: 
+            type: string
+      responses:
+            '200':
+                description: Successful operation
+                content:
+                    application/json: 
+                      schema: 
+                        $ref: "#/components/schemas/Persons"
+            '400':
+                description: Bad request
+  /{id}:
+    get:
+      summary: Получение пользователя по идентификатору
+      tags:
+        - Beneficiaries
+      operationId: getPersonsById
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema: 
+            type: string
+        - name: login
+          in: query
+          required: true
+          schema: 
+            type: string
+      responses:
+            '200':
+                description: Successful operation
+                content:
+                    application/json: 
+                      schema: 
+                        $ref: "#/components/schemas/PersonDto"
+            '400':
+                description: Bad request
+  /transfer/{id}:
+    put: 
+      summary: Операция по переводу денежных средств
+      tags:
+        - Beneficiaries
+      operationId: transfer
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema: 
+            type: string
+        - name: amount
+          in: query
+          required: true
+          schema: 
+            type: string
+        - name: login
+          in: query
+          required: true
+          schema: 
+            type: string
+      responses:
+            '200':
+                description: Successful operation
+            '400':
+                description: Bad request
+
+components:
+  schemas:
+    PersonDto:
+      type: object
+      description: Пользователь
+      required:
+        - firstName
+        - lastName
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID пользователя
+        userId:
+          type: string
+          format: uuid
+          description: ID пользователя
+        firstName:
+          type: string
+          description: Имя
+        lastName:
+          type: string
+          description: Фамилия
+        surName:
+          type: string
+          description: Отчество
+        balance:
+          type: string
+          description: Сумма на счете пользователя
+        regDate:
+          type: string
+          description: Дата и время регистрации
+          format: date-time
+        birthDate:
+          type: string
+          description: Дата рождения
+          format: date-time
+    Persons:
+      type: array
+      items: 
+          $ref: "#/components/schemas/PersonDto"

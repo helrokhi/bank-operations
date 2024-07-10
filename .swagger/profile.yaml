@@ -1,0 +1,215 @@
+openapi: 3.0.3
+info: 
+    title: Сервис пользователя openAPI спецификация
+    version: '0.0.1'
+servers: 
+  - url: 'http://localhost:8030/api/v1/'
+    description: Dev server
+paths:
+  /auth/register:
+    post:
+      summary: Регистрация нового пользователя
+      tags: 
+        - Authorization
+      operationId: registrationPerson
+      requestBody: 
+        required: true
+        content: 
+            application/json: 
+                schema:
+                  $ref: "#/components/schemas/RegistrationDto"
+      responses:
+        '200':
+            description: Successful operation
+        '400':
+            description: Bad request
+  /auth/refresh:
+    post:
+      summary: Обновление токена системы безопасности
+      tags:
+        - Authorization
+      operationId: refreshToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticateResponseDto'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Bad request
+  /auth/login:
+    post:
+      summary: Авторизация пользователя
+      tags:
+        - Authorization
+      operationId: signIn
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthenticateDto'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Bad request
+
+  /account/me:
+    get:
+      summary: Получение профиля пользователя по логину пользователя
+      tags: 
+       - Account
+      operationId: getMyProfile
+      parameters: 
+        - name: login
+          in: query
+          required: true
+          schema: 
+            type: string
+      responses:
+        '200':
+            description: Successful operation
+            content: 
+              application/json: 
+                schema:
+                  $ref: "#/components/schemas/PersonDto" 
+        '400':
+            description: Bad request
+    put: 
+      summary: Обновление профиля пользователя
+      tags: 
+       - Account
+      operationId: updateMyProfile
+      requestBody: 
+        required: true
+        content: 
+            application/json: 
+                schema:
+                  $ref: "#/components/schemas/PersonDto"
+      parameters: 
+        - name: login
+          in: query
+          required: true
+          schema: 
+            type: string
+      responses:
+        '200':
+            description: Successful operation
+            content: 
+              application/json: 
+                schema:
+                  $ref: "#/components/schemas/PersonDto" 
+        '400':
+            description: Bad request
+  /account/{id}:
+    get:
+      summary: Получение пользователя по идентификатору
+      tags:
+        - Account
+      operationId: getPersonsById
+      parameters: 
+        - name: id
+          in: path
+          required: true
+          schema: 
+            type: string
+      responses:
+          '200':
+              description: Successful operation
+              content:
+                  application/json: 
+                    schema: 
+                      $ref: "#/components/schemas/PersonDto"
+          '400':
+              description: Bad request
+
+components:
+    schemas:
+      RegistrationDto:
+        type: object
+        description: Регистрация
+        required:
+          - login
+          - password1
+          - password2
+          - balance
+          - phoneNumber
+          - emailAddress
+        properties:
+          login:
+            type: string
+            description: Логин пользователя
+          password1:
+            type: string
+            description: Пароль пользователя
+          password2:
+            type: string
+            description: Подтверждение пароля пользователя
+          balance:
+            type: string
+            description: Сумма на счете пользователя
+          phoneNumber:
+            type: string
+            description: Номер телефона пользователя
+          emailAddress:
+            type: string
+            description: Адрес электронной почты пользователя
+      PersonDto:
+        type: object
+        description: Пользователь
+        required:
+          - firstName
+          - lastName
+        properties:
+          id:
+            type: string
+            format: uuid
+            description: ID пользователя
+          userId:
+            type: string
+            format: uuid
+            description: ID пользователя
+          firstName:
+            type: string
+            description: Имя
+          lastName:
+            type: string
+            description: Фамилия
+          surName:
+            type: string
+            description: Отчество
+          balance:
+            type: string
+            description: Сумма на счете пользователя
+          regDate:
+            type: string
+            description: Дата и время регистрации
+            format: date-time
+          birthDate:
+            type: string
+            description: Дата рождения
+            format: date-time
+      AuthenticateResponseDto:
+        type: object
+        properties:
+          accessToken:
+              type: string
+              description: Токен для доступа
+          refreshToken:
+            type: string
+            description: Токен для обновления
+        description: DTO ответа на аутентификацию
+      AuthenticateDto:
+            type: object
+            properties:
+              login:
+                type: string
+                description: Логин пользователя
+              password:
+                type: string
+                description: Пароль пользователя
+            description: DTO аутентификации
